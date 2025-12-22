@@ -47,3 +47,34 @@ def burger_with_ingredients(mock_bun, mock_sauce_ingredient, mock_filling_ingred
     burger.add_ingredient(mock_sauce_ingredient)
     burger.add_ingredient(mock_filling_ingredient)
     return burger
+
+
+
+# ... существующий код ...
+
+@pytest.fixture
+def mock_database():
+    """Фикстура для создания мока базы данных"""
+    database = Mock()
+    
+    # Создаем моки для булочек
+    mock_buns = [Mock(), Mock(), Mock()]
+    mock_buns[0].get_name.return_value = "black bun"
+    mock_buns[0].get_price.return_value = 100.0
+    
+    # Создаем моки для ингредиентов
+    mock_ingredients = [Mock() for _ in range(6)]
+    
+    # Настраиваем ингредиенты
+    for i in range(3):  # Соусы
+        mock_ingredients[i].get_type.return_value = "SAUCE"
+        mock_ingredients[i].get_price.return_value = (i + 1) * 100.0
+    
+    for i in range(3, 6):  # Начинки
+        mock_ingredients[i].get_type.return_value = "FILLING"
+        mock_ingredients[i].get_price.return_value = (i - 2) * 100.0
+    
+    database.available_buns.return_value = mock_buns
+    database.available_ingredients.return_value = mock_ingredients
+    
+    return database
