@@ -39,7 +39,7 @@ venv.bak/
 
 # Testing
 .coverage
-htmlcov/                   
+                  
 .pytest_cache/
 .tox/
 .coverage.*
