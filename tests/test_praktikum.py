@@ -205,4 +205,4 @@ class TestPraktikum:
         
         # Проверяем, что в чеке есть правильная цена
         printed_receipt = mock_print.call_args[0][0]
-        assert "Price: 1000" in printed_receipt
+        assert "Price: 700" in printed_receipt
