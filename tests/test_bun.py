@@ -24,7 +24,7 @@ class TestBun:
         assert isinstance(bun.get_price(), float)
         assert bun.get_price() == 100.0
         
-        # Test with int (should still work)
+        # Test with int 
         bun2 = Bun("Test bun 2", 200)
         # Don't check type, just check arithmetic works
         total = bun.get_price() + bun2.get_price()
