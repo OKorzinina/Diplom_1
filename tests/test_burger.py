@@ -1,5 +1,5 @@
 """
-Тесты для класса Burger из burger.py
+Тесты для класса Burger 
 Включает использование моков и параметризации
 """
 import pytest
@@ -15,43 +15,42 @@ class TestBurger:
 
     def test_burger_initialization(self):
         """Проверка инициализации пустого бургера"""
-        # Arrange & Act
+       
         burger = Burger()
 
-        # Assert
         assert burger.bun is None
         assert burger.ingredients == []
 
     def test_set_buns(self):
         """Проверка установки булочек в бургер"""
-        # Arrange
+       
         burger = Burger()
         mock_bun = Mock()
         mock_bun.get_name.return_value = "Тестовая булочка"
         mock_bun.get_price.return_value = 100.0
 
-        # Act
+       
         burger.set_buns(mock_bun)
 
-        # Assert
+       
         assert burger.bun == mock_bun
 
     def test_add_ingredient(self):
         """Проверка добавления ингредиента в бургер"""
-        # Arrange
+       
         burger = Burger()
         mock_ingredient = Mock()
 
-        # Act
+        
         burger.add_ingredient(mock_ingredient)
 
-        # Assert
+       
         assert len(burger.ingredients) == 1
         assert burger.ingredients[0] == mock_ingredient
 
     def test_remove_ingredient(self):
         """Проверка удаления ингредиента по индексу"""
-        # Arrange
+       
         burger = Burger()
         mock_ingredient1 = Mock()
         mock_ingredient2 = Mock()
@@ -61,10 +60,10 @@ class TestBurger:
         burger.add_ingredient(mock_ingredient2)
         burger.add_ingredient(mock_ingredient3)
 
-        # Act
+      
         burger.remove_ingredient(1)  # Удаляем второй ингредиент
 
-        # Assert
+       
         assert len(burger.ingredients) == 2
         assert burger.ingredients[0] == mock_ingredient1
         assert burger.ingredients[1] == mock_ingredient3
@@ -76,24 +75,24 @@ class TestBurger:
     ])
     def test_move_ingredient(self, index, new_index, expected_order):
         """Параметризованный тест перемещения ингредиентов"""
-        # Arrange
+        
         burger = Burger()
         mock_ingredients = [Mock(), Mock(), Mock()]
         
         for ingredient in mock_ingredients:
             burger.add_ingredient(ingredient)
 
-        # Act
+       
         burger.move_ingredient(index, new_index)
 
-        # Assert
+        
         # Проверяем новый порядок ингредиентов
         for i, expected_idx in enumerate(expected_order):
             assert burger.ingredients[i] == mock_ingredients[expected_idx]
 
     def test_get_price_with_mocks(self):
         """Тест расчета цены бургера с использованием моков"""
-        # Arrange
+        
         burger = Burger()
         
         # Создаем моки для булочки и ингредиентов
@@ -106,13 +105,13 @@ class TestBurger:
         mock_ingredient1.get_price.return_value = 50.0  # Ингредиент 1
         mock_ingredient2.get_price.return_value = 30.0  # Ингредиент 2
 
-        # Act
+       
         burger.set_buns(mock_bun)
         burger.add_ingredient(mock_ingredient1)
         burger.add_ingredient(mock_ingredient2)
         total_price = burger.get_price()
 
-        # Assert
+        
         # Ожидаемая цена: (100 * 2) + 50 + 30 = 280
         expected_price = 280.0
         assert total_price == expected_price
@@ -129,7 +128,7 @@ class TestBurger:
     ])
     def test_get_price_parametrized(self, bun_price, ingredient_prices, expected_total):
         """Параметризованный тест расчета цены с разными значениями"""
-        # Arrange
+       
         burger = Burger()
         
         mock_bun = Mock()
@@ -141,32 +140,32 @@ class TestBurger:
             mock_ingr.get_price.return_value = price
             mock_ingredients.append(mock_ingr)
 
-        # Act
+       
         burger.set_buns(mock_bun)
         for ingredient in mock_ingredients:
             burger.add_ingredient(ingredient)
         
         total_price = burger.get_price()
 
-        # Assert
+        
         assert total_price == expected_total
 
     def test_get_receipt_with_real_objects(self):
         """Тест формирования чека с реальными объектами"""
-        # Arrange
+        
         burger = Burger()
         
         bun = Bun("Черная булочка", 100.0)
         ingredient1 = Ingredient(INGREDIENT_TYPE_SAUCE, "горчичный соус", 50.0)
         ingredient2 = Ingredient(INGREDIENT_TYPE_FILLING, "котлета", 100.0)
 
-        # Act
+        
         burger.set_buns(bun)
         burger.add_ingredient(ingredient1)
         burger.add_ingredient(ingredient2)
         receipt = burger.get_receipt()
 
-        # Assert
+        
         assert "(==== Черная булочка ====)" in receipt
         assert "= sauce горчичный соус =" in receipt
         assert "= filling котлета =" in receipt
@@ -174,7 +173,7 @@ class TestBurger:
 
     def test_get_receipt_with_mocks(self):
         """Тест формирования чека с использованием моков"""
-        # Arrange
+       
         burger = Burger()
         
         mock_bun = Mock()
@@ -191,13 +190,12 @@ class TestBurger:
         mock_ingredient2.get_name.return_value = "салат"
         mock_ingredient2.get_price.return_value = 30.0
 
-        # Act
         burger.set_buns(mock_bun)
         burger.add_ingredient(mock_ingredient1)
         burger.add_ingredient(mock_ingredient2)
         receipt = burger.get_receipt()
 
-        # Assert
+        
         expected_lines = [
             "(==== Тестовая булочка ====)",
             "= sauce кетчуп =",
@@ -211,22 +209,22 @@ class TestBurger:
 
     def test_remove_ingredient_invalid_index(self):
         """Тест попытки удаления ингредиента с неверным индексом"""
-        # Arrange
+        
         burger = Burger()
         mock_ingredient = Mock()
         burger.add_ingredient(mock_ingredient)
 
-        # Act & Assert
+       
         with pytest.raises(IndexError):
             burger.remove_ingredient(5)  # Неверный индекс
 
     def test_move_ingredient_invalid_index(self):
         """Тест попытки перемещения ингредиента с неверным индексом"""
-        # Arrange
+        
         burger = Burger()
         mock_ingredient = Mock()
         burger.add_ingredient(mock_ingredient)
 
-        # Act & Assert
+        
         with pytest.raises(IndexError):
             burger.move_ingredient(5, 0)  # Неверный исходный индекс
