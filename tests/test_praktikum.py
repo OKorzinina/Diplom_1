@@ -20,8 +20,7 @@ class TestPraktikum:
         4. Перемещает и удаляет ингредиенты
         5. Выводит правильный чек
         """
-        # ===== ARRANGE =====
-        # Создаем мок для экземпляра Database
+        
         mock_database_instance = Mock()
         mock_database_class.return_value = mock_database_instance
         
@@ -64,12 +63,11 @@ class TestPraktikum:
         mock_database_instance.available_buns.return_value = mock_buns
         mock_database_instance.available_ingredients.return_value = mock_ingredients
         
-        # ===== ACT =====
-        # Вызываем тестируемую функцию
+        
         main()
         
-        # ===== ASSERT =====
-        # 1. Проверяем создание Database
+       
+        # 1.Проверяем создание Database
         mock_database_class.assert_called_once()
         
         # 2. Проверяем вызовы методов базы данных
@@ -94,7 +92,7 @@ class TestPraktikum:
         - buns[0] - первая булочка
         - ingredients[1], [4], [3], [5] - конкретные ингредиенты
         """
-        # ===== ARRANGE =====
+        
         mock_database_instance = Mock()
         mock_database_class.return_value = mock_database_instance
         
@@ -113,7 +111,7 @@ class TestPraktikum:
             # ===== ACT =====
             main()
             
-            # ===== ASSERT =====
+           
             # Проверяем вызовы методов Burger с правильными аргументами
             mock_burger_instance.set_buns.assert_called_once_with(mock_buns[0])
             
@@ -142,7 +140,7 @@ class TestPraktikum:
         """
         Тестируем обработку пустой базы данных
         """
-        # ===== ARRANGE =====
+        
         mock_database_instance = Mock()
         mock_database_class.return_value = mock_database_instance
         
@@ -150,7 +148,7 @@ class TestPraktikum:
         mock_database_instance.available_buns.return_value = []
         mock_database_instance.available_ingredients.return_value = []
         
-        # ===== ACT & ASSERT =====
+        
         # Должно вызвать IndexError при попытке обращения по индексу
         with pytest.raises(IndexError):
             main()
@@ -159,7 +157,7 @@ class TestPraktikum:
         """
         Проверяем, что модуль можно импортировать без ошибок
         """
-        # Эта проверка гарантирует, что синтаксис модуля корректен
+        
         from praktikum.praktikum import main
         assert callable(main)
     
@@ -169,7 +167,7 @@ class TestPraktikum:
         """
         Интеграционный тест: проверяем правильность расчета цены
         """
-        # ===== ARRANGE =====
+        
         mock_database_instance = Mock()
         mock_database_class.return_value = mock_database_instance
         
@@ -194,15 +192,8 @@ class TestPraktikum:
         mock_database_instance.available_buns.return_value = mock_buns
         mock_database_instance.available_ingredients.return_value = mock_ingredients
         
-        # ===== ACT =====
+        
         main()
-        
-        # ===== ASSERT =====
-        # main() добавляет: ingredients[1], [4], [3], [5]
-        # Цены: sour cream(200) + dinosaur(200) + cutlet(100) + sausage(300) = 800
-        # Плюс булочка black bun: 100 * 2 = 200
-        # Итого: 200 + 800 = 1000
-        
-        # Проверяем, что в чеке есть правильная цена
+                
         printed_receipt = mock_print.call_args[0][0]
         assert "Price: 700" in printed_receipt
