@@ -21,13 +21,16 @@ class TestIngredient:
         assert sauce.get_type() == "SAUCE"
         assert filling.get_type() == "FILLING"
 
-    def test_ingredient_price_is_numeric(self):
-        """Check that price works numerically"""
-        
-        ingredient = Ingredient(INGREDIENT_TYPE_SAUCE, "mayonnaise", 45.0)
-        assert ingredient.get_price() == 45.0
-        
-        ingredient2 = Ingredient(INGREDIENT_TYPE_FILLING, "lettuce", 30)
-        
-        total = ingredient.get_price() + ingredient2.get_price()
-        assert total == 75.0
+    def test_get_price_returns_correct_value(self):
+        """Проверка получения цены для конкретного ингредиента"""
+        price = 45.0
+        ingredient = Ingredient(INGREDIENT_TYPE_SAUCE, "mayonnaise", price)
+        assert ingredient.get_price() == price
+
+    def test_ingredient_prices_can_be_summed(self):
+        """Проверка, что цены ингредиентов можно складывать (они численного типа)"""
+        ingredient1 = Ingredient(INGREDIENT_TYPE_SAUCE, "mayonnaise", 45.0)
+        ingredient2 = Ingredient(INGREDIENT_TYPE_FILLING, "lettuce", 30.0)
+
+        assert ingredient1.get_price() + ingredient2.get_price() == 75.0
+
