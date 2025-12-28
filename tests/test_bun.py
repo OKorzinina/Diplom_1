@@ -18,14 +18,13 @@ class TestBun:
         assert bun.get_price() == price
 
     def test_bun_price_is_float(self):
-        """Check that price works as float"""
-        # Test with float
+        """Проверка, что цена корректно возвращается как float при инициализации float значением"""
         bun = Bun("Test bun", 100.0)
         assert isinstance(bun.get_price(), float)
         assert bun.get_price() == 100.0
-        
-        # Test with int (should still work)
-        bun2 = Bun("Test bun 2", 200)
-        # Don't check type, just check arithmetic works
-        total = bun.get_price() + bun2.get_price()
-        assert total == 300.0
+
+    def test_bun_price_with_int_input(self):
+        """Проверка, что при передаче целого числа (int) цена корректно сохраняется и доступна"""
+        bun = Bun("Test bun 2", 200)
+        # Проверяем конечное состояние объекта — значение цены
+        assert bun.get_price() == 200
