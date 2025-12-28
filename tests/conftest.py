@@ -50,8 +50,6 @@ def burger_with_ingredients(mock_bun, mock_sauce_ingredient, mock_filling_ingred
 
 
 
-# ... существующий код ...
-
 @pytest.fixture
 def mock_database():
     """Фикстура для создания мока базы данных"""

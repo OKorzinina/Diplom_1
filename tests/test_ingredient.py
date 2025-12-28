@@ -23,12 +23,11 @@ class TestIngredient:
 
     def test_ingredient_price_is_numeric(self):
         """Check that price works numerically"""
-        # Test with float
+        
         ingredient = Ingredient(INGREDIENT_TYPE_SAUCE, "mayonnaise", 45.0)
         assert ingredient.get_price() == 45.0
         
-        # Test with int
         ingredient2 = Ingredient(INGREDIENT_TYPE_FILLING, "lettuce", 30)
-        # Just check arithmetic works, not type
+        
         total = ingredient.get_price() + ingredient2.get_price()
         assert total == 75.0

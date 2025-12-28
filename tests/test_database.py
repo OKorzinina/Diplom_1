@@ -13,10 +13,10 @@ class TestDatabase:
 
     def test_database_initialization(self):
         """Проверка инициализации базы данных"""
-        # Arrange & Act
+    
         database = Database()
 
-        # Assert
+        
         # Проверяем количество булочек
         assert len(database.buns) == 3
         # Проверяем количество ингредиентов (3 соуса + 3 начинки)
@@ -24,13 +24,11 @@ class TestDatabase:
 
     def test_available_buns(self):
         """Проверка получения списка доступных булочек"""
-        # Arrange
+       
         database = Database()
 
-        # Act
         buns = database.available_buns()
 
-        # Assert
         assert isinstance(buns, list)
         assert len(buns) == 3
         
@@ -46,13 +44,13 @@ class TestDatabase:
 
     def test_available_ingredients(self):
         """Проверка получения списка доступных ингредиентов"""
-        # Arrange
+        
         database = Database()
 
-        # Act
+       
         ingredients = database.available_ingredients()
 
-        # Assert
+        
         assert isinstance(ingredients, list)
         assert len(ingredients) == 6
         
@@ -67,13 +65,13 @@ class TestDatabase:
 
     def test_bun_prices(self):
         """Проверка цен булочек в базе данных"""
-        # Arrange
+        
         database = Database()
 
-        # Act
+       
         buns = database.available_buns()
 
-        # Assert
+       
         prices = [bun.get_price() for bun in buns]
         assert 100.0 in prices  # black bun
         assert 200.0 in prices  # white bun
@@ -81,19 +79,19 @@ class TestDatabase:
 
     def test_ingredient_names(self):
         """Проверка названий ингредиентов в базе данных"""
-        # Arrange
+        
         database = Database()
 
-        # Act
+        
         ingredients = database.available_ingredients()
         ingredient_names = [ingredient.get_name() for ingredient in ingredients]
 
-        # Assert для соусов
+        #  для соусов
         assert "hot sauce" in ingredient_names
         assert "sour cream" in ingredient_names
         assert "chili sauce" in ingredient_names
         
-        # Assert для начинок
+        #  для начинок
         assert "cutlet" in ingredient_names
         assert "dinosaur" in ingredient_names
         assert "sausage" in ingredient_names
