@@ -2,28 +2,11 @@ import pytest
 from unittest.mock import Mock, patch, call
 from praktikum.praktikum import main
 
+
 class TestPraktikum:
     """Тестирование основного модуля программы (функции main)"""
-
-    @pytest.fixture
-    def mock_db_and_burger(self):
-        """Фикстура для настройки общего мока базы данных"""
-        with patch('praktikum.praktikum.Database') as mock_db_class, \
-             patch('praktikum.praktikum.Burger') as mock_burger_class:
-
-            mock_db_instance = Mock()
-            mock_db_class.return_value = mock_db_instance
-
-            mock_burger_instance = Mock()
-            mock_burger_class.return_value = mock_burger_instance
-
-            # Настройка минимально необходимых данных в БД
-            mock_buns = [Mock() for _ in range(3)]
-            mock_ingredients = [Mock() for _ in range(6)]
-            mock_db_instance.available_buns.return_value = mock_buns
-            mock_db_instance.available_ingredients.return_value = mock_ingredients
-
-            yield mock_db_instance, mock_burger_instance
+    
+    # Фикстура mock_db_and_burger теперь находится в conftest.py
 
     @patch('praktikum.praktikum.print')
     def test_main_calls_database_methods(self, mock_print, mock_db_and_burger):
